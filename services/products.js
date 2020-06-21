@@ -1,22 +1,32 @@
 const productsMock = require("../utils/mocks/products");
+const { Product } = require("../models/product");
 
 class ProductsService {
   constructor() {}
 
-  get({ tags }) {
-    return Promise.resolve(productsMock);
+  get() {
+    return Product.find();
   }
   edit({ productId }) {
-    return Promise.resolve(productsMock[0]);
+    return Product.findById(productId);
   }
-  store({ product }) {
-    return Promise.resolve(productsMock[0]);
+  async store({ product }) {
+    console.log(product);
+    let newProduct = new Product(product);
+    newProduct = await newProduct.save();
+    return newProduct;
   }
-  update({ productId, product }) {
-    return Promise.resolve(productsMock[0]);
+  async update({ productId, product }) {
+    const options = { new: true };
+    let updatedProduct = await Product.findByIdAndUpdate(
+      productId,
+      product,
+      options
+    );
+    return updatedProduct;
   }
   delete({ productId }) {
-    return Promise.resolve(productsMock[0]);
+    return Product.findByIdAndDelete(productId);
   }
 }
 
