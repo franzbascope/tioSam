@@ -5,6 +5,10 @@ var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 const initRoutes = require("./routes");
 const bodyParser = require("body-parser");
+const connectMongo = require("./lib/mongo");
+
+//database
+connectMongo();
 
 var app = express();
 
