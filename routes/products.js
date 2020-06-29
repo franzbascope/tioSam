@@ -25,7 +25,7 @@ router.get("/:productId", async function (req, res, next) {
       message: "product retrieved",
     });
   } catch (err) {
-    res.status(404).json(err);
+    next(err);
   }
 });
 
@@ -52,7 +52,7 @@ router.delete("/:productId", async function (req, res, next) {
       data: deletedProduct,
     });
   } catch (err) {
-    res.status(404).json(err);
+    next(err);
   }
 });
 
@@ -68,7 +68,7 @@ router.put("/:productId", async function (req, res, next) {
       data: updatedProduct,
     });
   } catch (err) {
-    res.status(404).json(err);
+    next(err);
   }
 });
 

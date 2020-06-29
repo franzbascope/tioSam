@@ -8,8 +8,12 @@ class ProductsService {
   get() {
     return Product.find();
   }
-  edit({ productId }) {
-    return Product.findById(productId);
+  async edit({ productId }) {
+    try {
+      return await Product.findById(productId);
+    } catch (e) {
+      throw Boom.notFound(e);
+    }
   }
   async store({ product }) {
     let newProduct = new Product(product);
@@ -22,15 +26,24 @@ class ProductsService {
   }
   async update({ productId, product }) {
     const options = { new: true };
-    let updatedProduct = await Product.findByIdAndUpdate(
-      productId,
-      product,
-      options
-    );
-    return updatedProduct;
+    try {
+      let updatedProduct = await Product.findByIdAndUpdate(
+        productId,
+        product,
+        options
+      );
+      return updatedProduct;
+    } catch (e) {
+      throw Boom.notFound();
+    }
   }
-  delete({ productId }) {
-    return Product.findByIdAndDelete(productId);
+  async delete({ productId }) {
+    try {
+      console.log("hola mundo");
+      return await Product.findByIdAndDelete(productId);
+    } catch (e) {
+      throw Boom.notFound(e);
+    }
   }
 }
 
