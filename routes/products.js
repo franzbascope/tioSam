@@ -32,11 +32,11 @@ router.get("/:productId", async function (req, res, next) {
 router.post("/", async (req, res, next) => {
   try {
     const product = await productsService.store({ product: req.body });
-    res.status(200).json({
+    res.status(201).json({
       data: product,
     });
   } catch (err) {
-    res.status(422).json(err);
+    next(err);
   }
 });
 

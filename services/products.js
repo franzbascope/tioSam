@@ -1,5 +1,6 @@
 const productsMock = require("../utils/mocks/products");
 const { Product } = require("../models/product");
+const Boom = require("boom");
 
 class ProductsService {
   constructor() {}
@@ -13,8 +14,12 @@ class ProductsService {
   async store({ product }) {
     console.log(product);
     let newProduct = new Product(product);
-    newProduct = await newProduct.save();
-    return newProduct;
+    try {
+      newProduct = await newProduct.save();
+      return newProduct;
+    } catch (e) {
+      throw Boom.badData("Missing required fields", e);
+    }
   }
   async update({ productId, product }) {
     const options = { new: true };
