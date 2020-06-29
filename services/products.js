@@ -12,13 +12,12 @@ class ProductsService {
     return Product.findById(productId);
   }
   async store({ product }) {
-    console.log(product);
     let newProduct = new Product(product);
     try {
       newProduct = await newProduct.save();
       return newProduct;
     } catch (e) {
-      throw Boom.badData("Missing required fields", e);
+      throw Boom.badData(e);
     }
   }
   async update({ productId, product }) {
