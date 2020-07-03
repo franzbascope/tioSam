@@ -8,9 +8,7 @@ router.get("/", async (req, res, next) => {
 
   try {
     const products = await productsService.get({ tags });
-    res.status(200).json({
-      data: products,
-    });
+    res.status(200).json(products);
   } catch (err) {
     next(err);
   }
@@ -20,10 +18,7 @@ router.get("/:productId", async function (req, res, next) {
   const { productId } = req.params;
   try {
     const product = await productsService.edit({ productId });
-    res.status(200).json({
-      data: product,
-      message: "product retrieved",
-    });
+    res.status(200).json(product);
   } catch (err) {
     next(err);
   }
@@ -32,9 +27,7 @@ router.get("/:productId", async function (req, res, next) {
 router.post("/", async (req, res, next) => {
   try {
     const product = await productsService.store({ product: req.body });
-    res.status(201).json({
-      data: product,
-    });
+    res.status(201).json(product);
   } catch (err) {
     next(err);
   }
@@ -48,9 +41,7 @@ router.delete("/:productId", async function (req, res, next) {
       productId,
     });
 
-    res.status(200).json({
-      data: deletedProduct,
-    });
+    res.status(200).json(deletedProduct);
   } catch (err) {
     next(err);
   }
@@ -64,9 +55,7 @@ router.put("/:productId", async function (req, res, next) {
       productId,
       product: req.body,
     });
-    res.status(200).json({
-      data: updatedProduct,
-    });
+    res.status(200).json(updatedProduct);
   } catch (err) {
     next(err);
   }
