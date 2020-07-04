@@ -1,11 +1,11 @@
-var createError = require("http-errors");
-var express = require("express");
-var path = require("path");
-var cookieParser = require("cookie-parser");
-var logger = require("morgan");
+const express = require("express");
+const path = require("path");
+const cookieParser = require("cookie-parser");
+const logger = require("morgan");
 const initRoutes = require("./routes");
 const bodyParser = require("body-parser");
 const connectMongo = require("./lib/mongo");
+const cors = require("cors");
 
 const errorHandler = require("./middlewares/errorHandler");
 const Boom = require("boom");
@@ -16,6 +16,7 @@ connectMongo();
 var app = express();
 
 //middlewares
+app.use(cors());
 app.use(bodyParser.json());
 app.use(logger("dev"));
 app.use(express.json());
