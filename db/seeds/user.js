@@ -4,15 +4,19 @@ const bcrypt = require("bcrypt");
 const chalk = require("chalk");
 const connectMongo = require("../../lib/mongo");
 
-const userSeeds = () => {
-  connectMongo();
+const userSeeds = async () => {
   try {
-    new User({
+    //database
+    connectMongo();
+    //hash password
+    const hashedPassword = await bcrypt.hash(config.adminPassword, 10);
+    let newUser = new User({
       name: config.adminName,
       email: config.adminEmail,
-      password: bcrypt.hash(config.adminPassword),
-    }).save();
-    console.log(chalk.green(`User seeds ran successfully`));
+      password: hashedPassword,
+    });
+    newUser = await newUser.save();
+    console.log(chalk.green(`User seeds ran successfully,id: ${newUser._id}`));
     process.exit(0);
   } catch (e) {
     console.log(chalk.red(`Error creating user: ${e}`));

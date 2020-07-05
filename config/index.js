@@ -8,6 +8,7 @@ const config = {
   dbHost: process.env.HOST,
   dbName: process.env.DB_NAME,
   dbPort: process.env.DB_PORT,
+  authJWT: process.env.AUTH_JWT_SECRET,
   adminName: process.env.AUTH_NAME,
   adminPassword: process.env.AUTH_PASSWORD,
   adminEmail: process.env.AUTH_EMAIL,
