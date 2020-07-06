@@ -13,11 +13,7 @@ const Routes = (app) => {
   app.use("/", indexRouter);
 
   //requiring auth routes
-  app.use(
-    "/products",
-    passport.authenticate("jwt", { session: false }),
-    productsRouter
-  );
+  app.use("/products", productsRouter);
   app.use(
     "/sells",
     passport.authenticate("jwt", { session: false }),

@@ -1,12 +1,13 @@
 const productsMock = require("../utils/mocks/products");
 const { Product } = require("../models/product");
+const { Company } = require("../models/company");
 const Boom = require("boom");
 
 class ProductsService {
   constructor() {}
 
-  get() {
-    return Product.find();
+  async get() {
+    return await Product.find().populate("company");
   }
   async edit({ productId }) {
     try {

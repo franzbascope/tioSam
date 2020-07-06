@@ -10,6 +10,7 @@ router.get("/", async (req, res, next) => {
     const products = await productsService.get({ tags });
     res.status(200).json(products);
   } catch (err) {
+    console.log(err);
     next(err);
   }
 });
