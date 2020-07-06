@@ -1,6 +1,7 @@
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 const params = require("../utils/params");
+const { Buy } = require("./buys");
 
 const ImportationSchema = new Schema({
   departure_date: {
@@ -20,7 +21,9 @@ const ImportationSchema = new Schema({
     default: function () {
       let value_dollars = 0;
       for (let buy of this.buys) {
-        value_dollars += buy.cost_dollars;
+        Buy.findOne(buy).then((foundBuy) => {
+          value_dollars += foundBuy.cost_dollars;
+        });
       }
       return value_dollars;
     },
@@ -36,7 +39,9 @@ const ImportationSchema = new Schema({
     default: function () {
       let shipping_estimated = 0;
       for (let buy of this.buys) {
-        shipping_estimated += buy.total_weight_grams;
+        Buy.findById(buy).then((foundBuy) => {
+          shipping_estimated += foundBuy.total_weight_grams;
+        });
       }
       return shipping_estimated / params.gramsInKg;
     },
@@ -48,7 +53,8 @@ const ImportationSchema = new Schema({
   shipping_cost_dollars: {
     type: Number,
     default: function () {
-      return params.price_kg * this.shipping_real_kg;
+      if (this.shipping_real_kg) return params.price_kg * this.shipping_real_kg;
+      return 0;
     },
   },
   buys: [{ type: Schema.Types.ObjectId, ref: "Buy" }],

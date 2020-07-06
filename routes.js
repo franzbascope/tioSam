@@ -1,5 +1,6 @@
 const indexRouter = require("./routes/index");
 const productsRouter = require("./routes/products");
+const importationsRouter = require("./routes/importations");
 const buysRouter = require("./routes/buys");
 const sellsRouter = require("./routes/sells");
 const authRouter = require("./routes/auth");
@@ -16,6 +17,7 @@ const Routes = (app) => {
   //requiring auth routes
   app.use("/products", productsRouter);
   app.use("/buys", buysRouter);
+  app.use("/importations", importationsRouter);
   app.use(
     "/sells",
     passport.authenticate("jwt", { session: false }),
