@@ -48,7 +48,7 @@ const BuySchema = new Schema({
       return this.cost_dollars * params.exchange_rate;
     },
   },
-  total_weight_grams: {
+  total_weight_kg: {
     type: Number,
     default: function () {
       if (this.products) {
@@ -56,7 +56,7 @@ const BuySchema = new Schema({
         for (let product of this.products) {
           total += product.weight;
         }
-        return total;
+        return total / params.gramsInKg;
       }
       return 0;
     },

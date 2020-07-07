@@ -36,15 +36,6 @@ const ImportationSchema = new Schema({
   },
   shipping_estimated_kg: {
     type: Number,
-    default: function () {
-      let shipping_estimated = 0;
-      for (let buy of this.buys) {
-        Buy.findById(buy).then((foundBuy) => {
-          shipping_estimated += foundBuy.total_weight_grams;
-        });
-      }
-      return shipping_estimated / params.gramsInKg;
-    },
   },
   shipping_real_kg: {
     type: Number,
@@ -58,6 +49,15 @@ const ImportationSchema = new Schema({
     },
   },
   buys: [{ type: Schema.Types.ObjectId, ref: "Buy" }],
+});
+
+ImportationSchema.pre("save", async function () {
+  let shipping_estimated_kg = 0;
+  for (let buy of this.buys) {
+    let foundBuy = await Buy.findById(buy);
+    shipping_estimated_kg += foundBuy.total_weight_kg;
+  }
+  this.shipping_estimated_kg = shipping_estimated_kg;
 });
 
 const Importation = mongoose.model("Importation", ImportationSchema);
