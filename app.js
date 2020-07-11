@@ -2,12 +2,12 @@ const express = require("express");
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
-const initRoutes = require("./routes");
+const initRoutes = require("./src/routes");
 const bodyParser = require("body-parser");
-const connectMongo = require("./lib/mongo");
+const connectMongo = require("./src/lib/mongo");
 const cors = require("cors");
 
-const errorHandler = require("./middlewares/errorHandler");
+const errorHandler = require("./src/middlewares/errorHandler");
 const Boom = require("boom");
 
 //database

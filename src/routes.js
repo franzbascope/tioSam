@@ -4,6 +4,7 @@ const importationsRouter = require("./routes/importations");
 const buysRouter = require("./routes/buys");
 const sellsRouter = require("./routes/sells");
 const authRouter = require("./routes/auth");
+const companyRouter = require("./routes/companies");
 const passport = require("passport");
 
 // JWT strategy
@@ -22,6 +23,11 @@ const Routes = (app) => {
     "/sells",
     passport.authenticate("jwt", { session: false }),
     sellsRouter
+  );
+  app.use(
+    "/companies",
+    passport.authenticate("jwt", { session: false }),
+    companyRouter
   );
 };
 
