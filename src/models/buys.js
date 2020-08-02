@@ -54,7 +54,7 @@ const BuySchema = new Schema({
       if (this.products) {
         let total = 0;
         for (let product of this.products) {
-          total += product.weight;
+          total += product.weight * product.quantity;
         }
         return total / params.gramsInKg;
       }
