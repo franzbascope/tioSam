@@ -22,6 +22,14 @@ class SellsService {
       throw Boom.notFound(e);
     }
   }
+
+  async edit({ buyId }) {
+    try {
+      return await Buy.findById(buyId);
+    } catch (e) {
+      throw Boom.notFound(e);
+    }
+  }
 }
 
 module.exports = SellsService;

@@ -37,5 +37,15 @@ router.delete("/:buyId", async function (req, res, next) {
   }
 });
 
+router.get("/:buyId", async function (req, res, next) {
+  const { buyId } = req.params;
+  try {
+    const buy = await buysService.edit({ buyId });
+    res.status(200).json(buy);
+  } catch (err) {
+    next(err);
+  }
+});
+
 
 module.exports = router;
