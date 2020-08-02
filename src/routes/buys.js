@@ -47,5 +47,21 @@ router.get("/:buyId", async function (req, res, next) {
   }
 });
 
+router.put("/:buyId", async function (req, res, next) {
+  const { buyId } = req.params;
+
+  try {
+    const updatedBuy = await buysService.update({
+      buyId,
+      buy: req.body,
+    });
+    res.status(200).json(updatedBuy);
+  } catch (err) {
+    next(err);
+  }
+});
+
+
+
 
 module.exports = router;

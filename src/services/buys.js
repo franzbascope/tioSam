@@ -30,6 +30,20 @@ class SellsService {
       throw Boom.notFound(e);
     }
   }
+
+  async update({ buyId, buy }) {
+    const options = { new: true };
+    try {
+      let updatedBuy = await Buy.findByIdAndUpdate(
+        buyId,
+        buy,
+        options
+      );
+      return updatedBuy;
+    } catch (e) {
+      throw Boom.notFound();
+    }
+  }
 }
 
 module.exports = SellsService;
