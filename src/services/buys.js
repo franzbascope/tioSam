@@ -2,7 +2,7 @@ const { Buy } = require("../models/buys");
 const Boom = require("boom");
 
 class SellsService {
-  constructor() {}
+  constructor() { }
 
   get() {
     return Buy.find();
@@ -13,6 +13,13 @@ class SellsService {
       return newBuy;
     } catch (e) {
       throw Boom.badData(e);
+    }
+  }
+  async delete({ buyId }) {
+    try {
+      return await Buy.findByIdAndDelete(buyId);
+    } catch (e) {
+      throw Boom.notFound(e);
     }
   }
 }

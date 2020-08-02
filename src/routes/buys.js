@@ -23,4 +23,19 @@ router.post("/", async (req, res, next) => {
   }
 });
 
+router.delete("/:buyId", async function (req, res, next) {
+  const { buyId } = req.params;
+
+  try {
+    const deletedBuy = await buysService.delete({
+      buyId,
+    });
+
+    res.status(200).json(deletedBuy);
+  } catch (err) {
+    next(err);
+  }
+});
+
+
 module.exports = router;
