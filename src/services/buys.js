@@ -1,5 +1,6 @@
 const { Buy } = require("../models/buys");
 const Boom = require("boom");
+const { addProperties } = require('../models/buys/calculatedFunctions')
 
 class SellsService {
   constructor() { }
@@ -9,6 +10,7 @@ class SellsService {
   }
   async store({ buy }) {
     try {
+      buy = addProperties(buy)
       let newBuy = await new Buy(buy).save();
       return newBuy;
     } catch (e) {
@@ -33,6 +35,7 @@ class SellsService {
 
   async update({ buyId, buy }) {
     const options = { new: true };
+    buy = addProperties(buy)
     try {
       let updatedBuy = await Buy.findByIdAndUpdate(
         buyId,

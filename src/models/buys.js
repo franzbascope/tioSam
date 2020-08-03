@@ -1,14 +1,11 @@
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 const { ProductBuySchema } = require("./product_buy");
-const params = require("../utils/params");
+
 
 const BuySchema = new Schema({
   name: {
     type: String,
-    default: function () {
-      return `${this.location} ${this.date.toLocaleString()}`;
-    },
   },
   date: {
     type: Date,
@@ -26,16 +23,6 @@ const BuySchema = new Schema({
   },
   cost_dollars: {
     type: Number,
-    default: function () {
-      if (this.products) {
-        let total = 0;
-        for (let product of this.products) {
-          total += product.cost_dollars * product.quantity;
-        }
-        return total + this.taxes;
-      }
-      return 0;
-    },
   },
   taxes: {
     type: Number,
@@ -43,23 +30,9 @@ const BuySchema = new Schema({
   },
   cost_bs: {
     type: Number,
-    default: function () {
-      console.log(this.cost_dollars);
-      return this.cost_dollars * params.exchange_rate;
-    },
   },
   total_weight_kg: {
     type: Number,
-    default: function () {
-      if (this.products) {
-        let total = 0;
-        for (let product of this.products) {
-          total += product.weight * product.quantity;
-        }
-        return total / params.gramsInKg;
-      }
-      return 0;
-    },
   },
 
   products: [ProductBuySchema],
