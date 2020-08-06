@@ -4,11 +4,8 @@ const { config } = require("../config");
 
 const resetDb = async () => {
   try {
-    const DB_NAME = config.dbName;
     let db = connectMongo();
-    console.log(db.name);
-    debugger;
-    console.log("models", db.models);
+    await db.dropDatabase();
     console.log(chalk.green(`Database dropped successfully`));
     db.close();
     process.exit(0);
