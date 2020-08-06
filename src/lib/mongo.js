@@ -4,9 +4,14 @@ const { config } = require("../config");
 const USER = encodeURIComponent(config.dbUser);
 const PASSWORD = encodeURIComponent(config.dbPassword);
 const DB_NAME = config.dbName;
-const MONGO_URI = `mongodb+srv://${USER}:${PASSWORD}@cluster0.ybgfu.mongodb.net/${DB_NAME}?retryWrites=true&w=majority`;
+const DB_HOST = config.dbHost;
+const NODE_ENV = config.nodeEnv;
+let MONGO_URI = `mongodb+srv://${USER}:${PASSWORD}@${DB_HOST}/${DB_NAME}?retryWrites=true&w=majority`;
 
 const connectMongo = () => {
+  if (NODE_ENV == "test") {
+    MONGO_URI = `mongodb://${DB_HOST}:27017/${DB_NAME}?retryWrites=true&w=majority`;
+  }
   mongoose.connect(MONGO_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -21,6 +26,7 @@ const connectMongo = () => {
   db.once("open", function () {
     console.log("connected db successfully");
   });
+  return db;
 };
 
 module.exports = connectMongo;

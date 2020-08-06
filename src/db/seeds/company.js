@@ -6,7 +6,7 @@ const connectMongo = require("../../lib/mongo");
 const companySeed = async () => {
   try {
     //database
-    connectMongo();
+    const db = connectMongo();
     //hash password
     await new Company({
       name: "El Rey de la Barba",
@@ -15,6 +15,7 @@ const companySeed = async () => {
       name: "Tio Sam Importaciones",
     }).save();
     console.log(chalk.green(`Company seed ran successfully`));
+    db.close();
     process.exit(0);
   } catch (e) {
     console.log(chalk.red(`Error running company seed: ${e}`));

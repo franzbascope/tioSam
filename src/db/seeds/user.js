@@ -7,7 +7,7 @@ const connectMongo = require("../../lib/mongo");
 const userSeeds = async () => {
   try {
     //database
-    connectMongo();
+    const db = connectMongo();
     //hash password
     const hashedPassword = await bcrypt.hash(config.adminPassword, 10);
     let newUser = new User({
@@ -17,6 +17,7 @@ const userSeeds = async () => {
     });
     newUser = await newUser.save();
     console.log(chalk.green(`User seeds ran successfully,id: ${newUser._id}`));
+    db.close();
     process.exit(0);
   } catch (e) {
     console.log(chalk.red(`Error creating user: ${e}`));

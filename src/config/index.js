@@ -1,11 +1,20 @@
 require("dotenv").config();
 
 const config = {
-  dev: process.env.NODE_ENV !== "production",
+  nodeEnv: process.env.NODE_ENV,
   port: process.env.PORT,
-  dbUser: process.env.DB_USER,
-  dbPassword: process.env.DB_PASSWORD,
-  dbHost: process.env.HOST,
+  dbUser:
+    process.env.NODE_ENV == "test"
+      ? process.env.DB_USER_TEST
+      : process.env.DB_USER,
+  dbPassword:
+    process.env.NODE_ENV == "test"
+      ? process.env.DB_PASSWORD_TEST
+      : process.env.DB_PASSWORD,
+  dbHost:
+    process.env.NODE_ENV == "test"
+      ? process.env.DB_HOST_TEST
+      : process.env.HOST,
   dbName: process.env.DB_NAME,
   dbPort: process.env.DB_PORT,
   authJWT: process.env.AUTH_JWT_SECRET,
