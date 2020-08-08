@@ -60,5 +60,6 @@ describe("Products Router Test", () => {
     const res = await request(app).get("/products").send();
     expect(res.statusCode).toEqual(500);
     expect(res.body.message).toBeDefined();
+    connectMongo();
   });
 });
