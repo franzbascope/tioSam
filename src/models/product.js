@@ -48,6 +48,10 @@ const ProductSchema = new Schema({
     type: Number,
     required: true,
   },
+  lot: {
+    type: Number,
+    required: true,
+  },
   price_wholesale_bs: {
     type: Number,
     required: true,
