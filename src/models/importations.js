@@ -18,21 +18,10 @@ const ImportationSchema = new Schema({
   },
   value_dollars: {
     type: Number,
-    default: function () {
-      let value_dollars = 0;
-      for (let buy of this.buys) {
-        Buy.findOne(buy).then((foundBuy) => {
-          value_dollars += foundBuy.cost_dollars;
-        });
-      }
-      return value_dollars;
-    },
+    default: function () {},
   },
   value_bs: {
     type: Number,
-    default: function () {
-      return params.exchange_rate * this.value_dollars;
-    },
   },
   shipping_estimated_kg: {
     type: Number,
@@ -43,21 +32,8 @@ const ImportationSchema = new Schema({
   },
   shipping_cost_dollars: {
     type: Number,
-    default: function () {
-      if (this.shipping_real_kg) return params.price_kg * this.shipping_real_kg;
-      return 0;
-    },
   },
   buys: [{ type: Schema.Types.ObjectId, ref: "Buy" }],
-});
-
-ImportationSchema.pre("save", async function () {
-  let shipping_estimated_kg = 0;
-  for (let buy of this.buys) {
-    let foundBuy = await Buy.findById(buy);
-    shipping_estimated_kg += foundBuy.total_weight_kg;
-  }
-  this.shipping_estimated_kg = shipping_estimated_kg;
 });
 
 const Importation = mongoose.model("Importation", ImportationSchema);
