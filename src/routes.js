@@ -1,34 +1,37 @@
-const indexRouter = require("./routes/index");
 const productsRouter = require("./routes/products");
 const importationsRouter = require("./routes/importations");
 const buysRouter = require("./routes/buys");
 const sellsRouter = require("./routes/sells");
 const authRouter = require("./routes/auth");
-const companyRouter = require("./routes/companies");
 const passport = require("passport");
+const companiesApi = require("./routes/companies");
+const express = require("express");
 
 // JWT strategy
 require("./services/auth/jwt");
 
 const Routes = (app) => {
   //not required auth routes
-  app.use("/auth", authRouter);
-  app.use("/", indexRouter);
+  app.get("/", (req, res) => {
+    res.status(200).json({
+      message: "Hello World",
+    });
+  });
+  authRouter(app);
 
+  // needs authentication routes
+  authenticatedRoutes(app);
+};
+
+const authenticatedRoutes = (app) => {
+  const router = express.Router();
+  app.use("/", passport.authenticate("jwt", { session: false }), router);
   //requiring auth routes
-  app.use("/products", productsRouter);
-  app.use("/buys", buysRouter);
-  app.use("/importations", importationsRouter);
-  app.use(
-    "/sells",
-    passport.authenticate("jwt", { session: false }),
-    sellsRouter
-  );
-  app.use(
-    "/companies",
-    passport.authenticate("jwt", { session: false }),
-    companyRouter
-  );
+  productsRouter(app);
+  companiesApi(app);
+  buysRouter(app);
+  importationsRouter(app);
+  sellsRouter(app);
 };
 
 module.exports = Routes;

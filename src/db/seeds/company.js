@@ -3,7 +3,7 @@ const bcrypt = require("bcrypt");
 const chalk = require("chalk");
 const connectMongo = require("../../lib/mongo");
 
-const companySeed = async () => {
+companySeed = async () => {
   try {
     //database
     const db = connectMongo();
@@ -24,3 +24,5 @@ const companySeed = async () => {
 };
 
 companySeed();
+
+module.exports = companySeed;

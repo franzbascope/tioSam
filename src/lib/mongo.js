@@ -12,7 +12,6 @@ const connectMongo = () => {
   if (NODE_ENV == "test") {
     MONGO_URI = `mongodb://${DB_HOST}:27017/${DB_NAME}?retryWrites=true&w=majority`;
   }
-  console.log(MONGO_URI);
   mongoose.connect(MONGO_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,

@@ -40,7 +40,6 @@ class ProductsService {
   }
   async delete({ productId }) {
     try {
-      console.log("hola mundo");
       return await Product.findByIdAndDelete(productId);
     } catch (e) {
       throw Boom.notFound(e);

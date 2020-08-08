@@ -26,3 +26,5 @@ const userSeeds = async () => {
 };
 
 userSeeds();
+
+module.exports = userSeeds;
