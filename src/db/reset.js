@@ -5,9 +5,14 @@ const { config } = require("../config");
 const resetDb = async () => {
   try {
     let db = connectMongo();
-    await db.dropCollection("buys");
-    await db.dropCollection("products");
-    await db.dropDatabase();
+    try {
+      await db.dropCollection("buys");
+      await db.dropCollection("products");
+      await db.dropDatabase();
+    } catch (e) {
+      console.log(chalk.red("No collections added yet"));
+    }
+
     console.log(chalk.green(`Database dropped successfully`));
     db.close();
     process.exit(0);

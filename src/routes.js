@@ -14,11 +14,12 @@ const Routes = (app) => {
   //not required auth routes
   app.get("/", (req, res) => {
     res.status(200).json({
-      message: "Hello World",
+      message: "Hello Samuel",
     });
   });
   productsRouter(app);
   importationsRouter(app);
+  buysRouter(app);
   authRouter(app);
 
   // needs authentication routes
@@ -30,7 +31,6 @@ const authenticatedRoutes = (app) => {
   app.use("/", passport.authenticate("jwt", { session: false }), router);
   //requiring auth routes
   companiesApi(app);
-  buysRouter(app);
   sellsRouter(app);
 };
 
