@@ -4,7 +4,7 @@ const { SellDetailSchema } = require("./sell_detail");
 
 const SellSchema = new Schema({
   details: [SellDetailSchema],
-  updated: { type: Date, default: Date.now },
+  created_at: { type: Date, default: Date.now },
   subtotal: { type: Number, required: true },
   total: {
     type: Number,

@@ -1,12 +1,18 @@
-const productsMock = require("../utils/mocks/products");
 const { Sell } = require("../models/sell");
 const Boom = require("boom");
 
 class SellsService {
   constructor() {}
 
-  get() {
-    return Sell.find();
+  async get() {
+    return await Sell.find();
+  }
+  async edit({ sellId }) {
+    try {
+      return await Sell.findById(sellId);
+    } catch (e) {
+      throw Boom.notFound(e);
+    }
   }
   async store({ sell }) {
     try {
@@ -15,6 +21,22 @@ class SellsService {
       return newSell;
     } catch (e) {
       throw Boom.badData(e);
+    }
+  }
+  async update({ sellId, sell }) {
+    const options = { new: true };
+    try {
+      let updatedSell = await Sell.findByIdAndUpdate(sellId, sell, options);
+      return updatedSell;
+    } catch (e) {
+      throw Boom.notFound();
+    }
+  }
+  async delete({ sellId }) {
+    try {
+      return await Sell.findByIdAndDelete(sellId);
+    } catch (e) {
+      throw Boom.notFound(e);
     }
   }
 }
