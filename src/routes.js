@@ -17,6 +17,8 @@ const Routes = (app) => {
       message: "Hello World",
     });
   });
+  productsRouter(app);
+  importationsRouter(app);
   authRouter(app);
 
   // needs authentication routes
@@ -27,10 +29,8 @@ const authenticatedRoutes = (app) => {
   const router = express.Router();
   app.use("/", passport.authenticate("jwt", { session: false }), router);
   //requiring auth routes
-  productsRouter(app);
   companiesApi(app);
   buysRouter(app);
-  importationsRouter(app);
   sellsRouter(app);
 };
 
