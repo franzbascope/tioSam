@@ -2,6 +2,7 @@ const productsRouter = require("./routes/products");
 const importationsRouter = require("./routes/importations");
 const buysRouter = require("./routes/buys");
 const sellsRouter = require("./routes/sells");
+const clientsRouter = require("./routes/clients");
 const authRouter = require("./routes/auth");
 const passport = require("passport");
 const companiesApi = require("./routes/companies");
@@ -32,6 +33,7 @@ const authenticatedRoutes = (app) => {
   //requiring auth routes
   companiesApi(app);
   sellsRouter(app);
+  clientsRouter(app);
 };
 
 module.exports = Routes;

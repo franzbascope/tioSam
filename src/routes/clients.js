@@ -1,6 +1,6 @@
 const express = require("express");
-const clientService = require("../services/clients");
-const productsService = new ProductsService();
+const ClientService = require("../services/clients");
+const clientsService = new ClientService();
 
 const clientsApi = (app) => {
   const router = express.Router();
@@ -8,7 +8,7 @@ const clientsApi = (app) => {
   router.get("/", async (req, res, next) => {
     const { tags } = req.query;
     try {
-      const clients = await clientService.get({ tags });
+      const clients = await clientsService.get({ tags });
       res.status(200).json(clients);
     } catch (err) {
       next(err);
@@ -18,7 +18,7 @@ const clientsApi = (app) => {
   router.get("/:clientId", async function (req, res, next) {
     const { clientId } = req.params;
     try {
-      const client = await clientService.edit({ clientId });
+      const client = await clientsService.edit({ clientId });
       res.status(200).json(client);
     } catch (err) {
       next(err);
@@ -27,7 +27,7 @@ const clientsApi = (app) => {
 
   router.post("/", async (req, res, next) => {
     try {
-      const client = await clientService.store({ client: req.body });
+      const client = await clientsService.store({ client: req.body });
       res.status(201).json(client);
     } catch (err) {
       next(err);
@@ -38,7 +38,7 @@ const clientsApi = (app) => {
     const { clientId } = req.params;
 
     try {
-      const deletedClient = await clientService.delete({
+      const deletedClient = await clientsService.delete({
         clientId,
       });
 
@@ -52,7 +52,7 @@ const clientsApi = (app) => {
     const { clientId } = req.params;
 
     try {
-      const updatedClient = await productsService.update({
+      const updatedClient = await clientsService.update({
         clientId,
         client: req.body,
       });
@@ -63,4 +63,4 @@ const clientsApi = (app) => {
   });
 };
 
-module.exports = productsApi;
+module.exports = clientsApi;
