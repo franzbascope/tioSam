@@ -7,6 +7,7 @@ const StorageSchema = new Schema({
     required: true,
   },
   products: [{ type: Schema.Types.ObjectId, ref: "ProductStorage" }],
+  importations: [{ type: Schema.Types.ObjectId, ref: "Importation" }],
 });
 
 const Storage = mongoose.model("Storage", StorageSchema);
