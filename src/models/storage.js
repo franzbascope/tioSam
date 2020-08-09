@@ -6,7 +6,7 @@ const StorageSchema = new Schema({
     type: String,
     required: true,
   },
-  importations: [{ type: Schema.Types.ObjectId, ref: "Importation" }],
+  products: [{ type: Schema.Types.ObjectId, ref: "ProductStorage" }],
 });
 
 const Storage = mongoose.model("Storage", StorageSchema);
