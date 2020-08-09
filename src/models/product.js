@@ -42,13 +42,6 @@ const ProductSchema = new Schema({
   company: { type: Schema.Types.ObjectId, ref: "Company", required: true },
 });
 
-ProductSchema.methods.addCalculatedProperties = function (product) {
-  product.total_cost_dollars =
-    (product.weight * params.price_kg) / params.gramsInKg + params.price_kg;
-  product.total_cost_bs = product.total_cost_dollars * params.exchange_rate;
-  return product;
-};
-
 const addCalculatedProperties = (product) => {
   product.total_cost_dollars =
     (product.weight * params.price_kg) / params.gramsInKg +
