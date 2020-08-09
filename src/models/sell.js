@@ -11,6 +11,10 @@ const SellSchema = new Schema({
     type: Number,
     required: true,
   },
+  total_payment: {
+    type: Number,
+    required: true,
+  },
   total: {
     type: Number,
     default: function () {
