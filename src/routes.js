@@ -18,9 +18,6 @@ const Routes = (app) => {
       message: "Hello Samuel",
     });
   });
-  productsRouter(app);
-  importationsRouter(app);
-  buysRouter(app);
   authRouter(app);
 
   // needs authentication routes
@@ -33,6 +30,9 @@ const authenticatedRoutes = (app) => {
   //requiring auth routes
   companiesApi(app);
   sellsRouter(app);
+  productsRouter(app);
+  importationsRouter(app);
+  buysRouter(app);
   clientsRouter(app);
 };
 

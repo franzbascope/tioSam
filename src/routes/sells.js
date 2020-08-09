@@ -1,19 +1,15 @@
 const express = require("express");
-const router = express.Router();
 const SellsService = require("../services/sells");
 const sellsService = new SellsService();
 
 function apiSells(app) {
   const router = express.Router();
-  app.use("sells", router);
+  app.use("/sells", router);
   router.get("/", async (req, res, next) => {
     const { tags } = req.query;
-
     try {
       const sells = await sellsService.get({ tags });
-      res.status(200).json({
-        data: sells,
-      });
+      res.status(200).json(sells);
     } catch (err) {
       next(err);
     }
