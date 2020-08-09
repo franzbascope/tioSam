@@ -11,7 +11,7 @@ class ProductsService {
   }
   async edit({ productId }) {
     try {
-      return await Product.findById(productId);
+      return await Product.findById(productId).populate("company");
     } catch (e) {
       throw Boom.notFound(e);
     }

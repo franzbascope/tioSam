@@ -19,6 +19,10 @@ const ProductSchema = new Schema({
     type: Number,
     required: true,
   },
+  total_cost_unit_bs: {
+    type: Number,
+    required: true,
+  },
   weight: {
     type: Number,
     required: true,
@@ -47,6 +51,7 @@ const addCalculatedProperties = (product) => {
     (product.weight * params.price_kg) / params.gramsInKg +
     product.cost_dollars;
   product.total_cost_bs = product.total_cost_dollars * params.exchange_rate;
+  product.total_cost_unit_bs = product.total_cost_bs / product.lot;
   return product;
 };
 
