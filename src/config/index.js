@@ -15,7 +15,10 @@ const config = {
     process.env.NODE_ENV == "test"
       ? process.env.DB_HOST_TEST
       : process.env.DB_HOST,
-  dbName: process.env.DB_NAME,
+  dbName:
+    process.env.NODE_ENV == "test"
+      ? process.env.DB_NAME_TEST
+      : process.env.DB_NAME,
   dbPort: process.env.DB_PORT,
   authJWT: process.env.AUTH_JWT_SECRET,
   adminName: process.env.AUTH_NAME,

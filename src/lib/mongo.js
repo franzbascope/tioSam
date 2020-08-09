@@ -11,6 +11,7 @@ let MONGO_URI = `mongodb+srv://${USER}:${PASSWORD}@${DB_HOST}/${DB_NAME}?retryWr
 const connectMongo = () => {
   if (NODE_ENV == "test") {
     MONGO_URI = `mongodb://${DB_HOST}:27017/${DB_NAME}?retryWrites=true&w=majority`;
+    console.log("Test database!");
   }
   mongoose.connect(MONGO_URI, {
     useNewUrlParser: true,
