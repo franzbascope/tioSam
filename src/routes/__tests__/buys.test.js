@@ -9,7 +9,7 @@ describe("Buys Router Test", () => {
     expect(res.statusCode).toEqual(201);
   });
   it("/POST BUYS FAIL", async () => {
-    delete buys.name;
+    delete buys.date;
     const res = await request(app).post("/buys").send(buys);
     expect(res.statusCode).toEqual(422);
   });
@@ -30,16 +30,17 @@ describe("Buys Router Test", () => {
     expect(res.body.message).toBeDefined();
   });
   it("/UPDATE BUYS", async () => {
-    buys.name = "changed_name";
+    buys.taxes = 123;
     const res = await request(app).put(`/buys/${buys._id}`).send(buys);
     expect(res.statusCode).toEqual(200);
     expect(res.body).not.toBeNull();
-    expect(res.body.name).toEqual("changed_name");
+    expect(res.body.taxes).toEqual(123);
   });
   it("/UPDATE BUYS FAIL", async () => {
-    const res = await request(app).put(`/buys/0`).send({});
+    const res = await request(app).put(`/buys/0`).send(buys);
     expect(res.statusCode).toEqual(404);
     expect(res.body.message).toBeDefined();
+    //console.log(res.body.message);
   });
   it("/DELETE BUYS", async () => {
     const res = await request(app).delete(`/buys/${buys._id}`).send();
@@ -51,12 +52,5 @@ describe("Buys Router Test", () => {
     expect(res.statusCode).toEqual(404);
     expect(res.body.message).toBeDefined();
   });
-  it("/GET BUYS FAIL", async () => {
-    let db = connectMongo();
-    db.close();
-    const res = await request(app).get("/buys").send();
-    expect(res.statusCode).toEqual(500);
-    expect(res.body.message).toBeDefined();
-    connectMongo();
-  });
+  
 });

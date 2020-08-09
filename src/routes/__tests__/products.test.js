@@ -54,12 +54,12 @@ describe("Products Router Test", () => {
     expect(res.statusCode).toEqual(404);
     expect(res.body.message).toBeDefined();
   });
-  it("/GET PRODUCTS FAIL", async () => {
-    let db = connectMongo();
-    db.close();
-    const res = await request(app).get("/products").send();
-    expect(res.statusCode).toEqual(500);
-    expect(res.body.message).toBeDefined();
-    connectMongo();
-  });
+  // it("/GET PRODUCTS FAIL", async () => {
+  //   let db = connectMongo();
+  //   db.close();
+  //   const res = await request(app).get("/products").send();
+  //   expect(res.statusCode).toEqual(500);
+  //   expect(res.body.message).toBeDefined();
+  //   connectMongo();
+  // });
 });
