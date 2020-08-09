@@ -11,34 +11,13 @@ const ProductSchema = new Schema({
     type: Number,
     required: true,
   },
-  cost_bs: {
-    type: Number,
-    default: function () {
-      if (this.cost_dollars) {
-        return this.cost_dollars * params.exchange_rate;
-      }
-      return 0;
-    },
-  },
   total_cost_dollars: {
     type: Number,
-    default: function () {
-      if (this.weight) {
-        return (
-          (this.weight * params.price_kg) / params.gramsInKg + params.price_kg
-        );
-      }
-      return 0;
-    },
+    required: true,
   },
   total_cost_bs: {
     type: Number,
-    default: function () {
-      if (this.total_cost_dollars) {
-        return this.total_cost_dollars * params.exchange_rate;
-      }
-      return 0;
-    },
+    required: true,
   },
   weight: {
     type: Number,
@@ -56,9 +35,28 @@ const ProductSchema = new Schema({
     type: Number,
     required: true,
   },
+  price_lot_bs: {
+    type: Number,
+    required: true,
+  },
   company: { type: Schema.Types.ObjectId, ref: "Company", required: true },
 });
 
+ProductSchema.methods.addCalculatedProperties = function (product) {
+  product.total_cost_dollars =
+    (product.weight * params.price_kg) / params.gramsInKg + params.price_kg;
+  product.total_cost_bs = product.total_cost_dollars * params.exchange_rate;
+  return product;
+};
+
+const addCalculatedProperties = (product) => {
+  product.total_cost_dollars =
+    (product.weight * params.price_kg) / params.gramsInKg +
+    product.cost_dollars;
+  product.total_cost_bs = product.total_cost_dollars * params.exchange_rate;
+  return product;
+};
+
 const Product = mongoose.model("Product", ProductSchema);
 
-module.exports = { Product, ProductSchema };
+module.exports = { Product, ProductSchema, addCalculatedProperties };

@@ -1,5 +1,5 @@
 const productsMock = require("../utils/mocks/products");
-const { Product } = require("../models/product");
+const { Product, addCalculatedProperties } = require("../models/product");
 const { Company } = require("../models/company");
 const Boom = require("boom");
 
@@ -18,6 +18,8 @@ class ProductsService {
   }
   async store({ product }) {
     let newProduct = new Product(product);
+    newProduct = addCalculatedProperties(newProduct);
+    console.log("newProduct", newProduct);
     try {
       newProduct = await newProduct.save();
       return newProduct;
@@ -28,6 +30,7 @@ class ProductsService {
   async update({ productId, product }) {
     const options = { new: true };
     try {
+      product = addCalculatedProperties(product);
       let updatedProduct = await Product.findByIdAndUpdate(
         productId,
         product,
