@@ -5,14 +5,9 @@ const USER = encodeURIComponent(config.dbUser);
 const PASSWORD = encodeURIComponent(config.dbPassword);
 const DB_NAME = config.dbName;
 const DB_HOST = config.dbHost;
-const NODE_ENV = config.nodeEnv;
 let MONGO_URI = `mongodb+srv://${USER}:${PASSWORD}@${DB_HOST}/${DB_NAME}?retryWrites=true&w=majority`;
 
 const connectMongo = () => {
-  if (NODE_ENV == "test") {
-    MONGO_URI = `mongodb://${DB_HOST}:27017/${DB_NAME}?retryWrites=true&w=majority`;
-    console.log("Test database!");
-  }
   mongoose.connect(MONGO_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
