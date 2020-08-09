@@ -47,11 +47,14 @@ const ProductSchema = new Schema({
 });
 
 const addCalculatedProperties = (product) => {
-  product.total_cost_dollars =
+  product.total_cost_dollars = (
     (product.weight * params.price_kg) / params.gramsInKg +
-    product.cost_dollars;
-  product.total_cost_bs = product.total_cost_dollars * params.exchange_rate;
-  product.total_cost_unit_bs = product.total_cost_bs / product.lot;
+    product.cost_dollars
+  ).toFixed(2);
+  product.total_cost_bs = (
+    product.total_cost_dollars * params.exchange_rate
+  ).toFixed(2);
+  product.total_cost_unit_bs = (product.total_cost_bs / product.lot).toFixed(2);
   return product;
 };
 
