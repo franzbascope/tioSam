@@ -6,7 +6,7 @@ const resetDb = async () => {
   try {
     let db = connectMongo();
     try {
-      // await db.dropDatabase();
+      await db.dropDatabase();
     } catch (e) {
       console.log(chalk.red("No collections added yet", e));
     }
