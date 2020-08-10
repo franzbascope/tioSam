@@ -6,12 +6,11 @@ class ImportationsService {
   constructor() {}
 
   async get() {
-    return await Importation.find().populate("buys");
+    return await Importation.find();
   }
   async store({ importation }) {
     try {
       importation = await addProperties(importation);
-      console.log("importation", importation);
       let newImportation = await new Importation(importation).save();
       return newImportation;
     } catch (e) {
@@ -29,7 +28,7 @@ class ImportationsService {
 
   async edit({ importId }) {
     try {
-      return await Importation.findById(importId).populate("buys");
+      return await Importation.findById(importId);
     } catch (e) {
       throw Boom.notFound(e);
     }
