@@ -6,7 +6,7 @@ class ImportationsService {
   constructor() {}
 
   async get() {
-    return await Importation.find();
+    return await Importation.find().populate("buys");
   }
   async store({ importation }) {
     try {
@@ -29,7 +29,7 @@ class ImportationsService {
 
   async edit({ importId }) {
     try {
-      return await Importation.findById(importId);
+      return await Importation.findById(importId).populate("buys");
     } catch (e) {
       throw Boom.notFound(e);
     }
@@ -37,7 +37,7 @@ class ImportationsService {
 
   async update({ importId, importation }) {
     const options = { new: true };
-    importation = await addProperties(importation)
+    importation = await addProperties(importation);
     try {
       let updatedBuy = await Importation.findByIdAndUpdate(
         importId,
