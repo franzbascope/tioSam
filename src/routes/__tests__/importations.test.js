@@ -9,7 +9,7 @@ describe("Importation Router Test", () => {
     expect(res.statusCode).toEqual(201);
   });
   it("/POST IMPORTATION FAIL", async () => {
-    delete importation.date;
+    delete importation.departure_date;
     const res = await request(app).post(`/${route}`).send(importation);
     expect(res.statusCode).toEqual(422);
   });
