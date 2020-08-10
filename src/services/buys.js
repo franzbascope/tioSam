@@ -5,7 +5,7 @@ const { addProperties } = require('../models/buys/calculatedFunctions')
 class SellsService {
   constructor() { }
 
-  get() {
+  async get() {
     return Buy.find();
   }
   async store({ buy }) {

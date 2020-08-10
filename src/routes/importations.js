@@ -29,8 +29,8 @@ function apiImportation(app) {
 
   router.post("/", async (req, res, next) => {
     try {
-      const buy = await importationsService.store({ importation: req.body });
-      res.status(201).json(buy);
+      const importation = await importationsService.store({ importation: req.body });
+      res.status(201).json(importation);
     } catch (err) {
       next(err);
     }
