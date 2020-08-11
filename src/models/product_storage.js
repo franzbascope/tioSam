@@ -1,5 +1,6 @@
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
+const { ProductSchema } = require("./product");
 
 const ProductStorageSchema = new Schema({
   units: {
@@ -10,7 +11,7 @@ const ProductStorageSchema = new Schema({
     type: Number,
     required: true,
   },
-  product: { type: Schema.Types.ObjectId, ref: "Product" },
+  product: ProductSchema,
 });
 
 const ProductStorage = mongoose.model("ProductStorage", ProductStorageSchema);

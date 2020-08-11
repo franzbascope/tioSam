@@ -1,6 +1,5 @@
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
-const params = require("../utils/params");
 const { BuySchema } = require("./buys");
 
 const ImportationSchema = new Schema({
@@ -11,11 +10,7 @@ const ImportationSchema = new Schema({
   arrival_date: {
     type: Date,
   },
-  state: {
-    type: String,
-    enum: ["USA", "TRANSIT", "BO"],
-    default: "USA",
-  },
+  state: { type: Schema.Types.ObjectId, ref: "Storage", required: true },
   value_dollars: {
     type: Number,
     default: function () {},
