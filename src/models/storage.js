@@ -1,7 +1,6 @@
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
-const { ImportationSchema } = require("./importations");
-const { ProductStorageSchema } = require("./product_storage");
+const { ProductStorageSchema, ProductStorage } = require("./product_storage");
 
 const StorageSchema = new Schema({
   name: {
@@ -9,8 +8,21 @@ const StorageSchema = new Schema({
     required: true,
   },
   products_storage: [ProductStorageSchema],
-  importations: [ImportationSchema],
+  importations: [{ type: Schema.Types.ObjectId, ref: "Importation" }],
 });
+
+StorageSchema.methods.addImportation = function (importation) {
+  this.importations.push(importation._id);
+
+  console.log("importation", this.importations);
+  return this;
+};
+
+const addProductsToProductStorage = (products) => {
+  let productStorageArray = [];
+  for (let product of products) {
+  }
+};
 
 const Storage = mongoose.model("Storage", StorageSchema);
 

@@ -2,7 +2,6 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 const { ProductBuySchema } = require("./product_buy");
 
-
 const BuySchema = new Schema({
   name: {
     type: String,
