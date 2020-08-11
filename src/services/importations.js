@@ -6,7 +6,7 @@ class ImportationsService {
   constructor() {}
 
   async get() {
-    return await Importation.find();
+    return await Importation.find().populate("storage");
   }
   async store({ importation }) {
     try {
@@ -28,7 +28,7 @@ class ImportationsService {
 
   async edit({ importId }) {
     try {
-      return await Importation.findById(importId);
+      return await Importation.findById(importId).populate("storage");
     } catch (e) {
       throw Boom.notFound(e);
     }

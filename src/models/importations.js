@@ -10,7 +10,7 @@ const ImportationSchema = new Schema({
   arrival_date: {
     type: Date,
   },
-  state: { type: Schema.Types.ObjectId, ref: "Storage", required: true },
+  storage: { type: Schema.Types.ObjectId, ref: "Storage", required: true },
   value_dollars: {
     type: Number,
     default: function () {},
