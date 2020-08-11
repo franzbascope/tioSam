@@ -20,7 +20,8 @@ const Routes = (app) => {
     });
   });
   authRouter(app);
-  importationsRouter(app);
+  
+ 
   // needs authentication routes
   authenticatedRoutes(app);
 };
@@ -30,10 +31,12 @@ const authenticatedRoutes = (app) => {
   app.use("/", passport.authenticate("jwt", { session: false }), router);
   
   //requiring auth routes
-  storagesRouter(app);
+  
   companiesApi(app);
   sellsRouter(app);
   productsRouter(app);
+  importationsRouter(app);
+  storagesRouter(app);
   buysRouter(app);
   clientsRouter(app);
 };
