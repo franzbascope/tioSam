@@ -1,7 +1,7 @@
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 const params = require("../utils/params");
-const { Buy } = require("./buys");
+const { BuySchema } = require("./buys");
 
 const ImportationSchema = new Schema({
   departure_date: {
@@ -33,7 +33,7 @@ const ImportationSchema = new Schema({
   shipping_cost_dollars: {
     type: Number,
   },
-  buys: [{ type: Schema.Types.ObjectId, ref: "Buy" }],
+  buys: [BuySchema],
 });
 
 const Importation = mongoose.model("Importation", ImportationSchema);

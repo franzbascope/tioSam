@@ -1,5 +1,4 @@
 const params = require("../../utils/params");
-const { Buy } = require("../buys");
 
 const getValueBs = (importation) => {
   return params.exchange_rate * importation.value_dollars;
@@ -15,8 +14,7 @@ const getValueDollars = async (importation) => {
   let value_dollars = 0;
   for (let buy of importation.buys) {
     try {
-      let objectBuy = await Buy.findById(buy);
-      value_dollars += objectBuy.cost_dollars;
+      value_dollars += buy.cost_dollars;
     } catch (e) {
       throw new Error(e);
     }
@@ -28,8 +26,7 @@ const getShippingEstimatedKg = async (importation) => {
   let shipping_estimated_kg = 0;
   for (let buy of importation.buys) {
     try {
-      let foundBuy = await Buy.findById(buy);
-      shipping_estimated_kg += foundBuy.total_weight_kg;
+      shipping_estimated_kg += buy.total_weight_kg;
     } catch (e) {
       throw new Error(e);
     }

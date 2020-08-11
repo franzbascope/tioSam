@@ -11,7 +11,6 @@ class ImportationsService {
   async store({ importation }) {
     try {
       importation = await addProperties(importation);
-      console.log("importation", importation);
       let newImportation = await new Importation(importation).save();
       return newImportation;
     } catch (e) {
@@ -37,7 +36,7 @@ class ImportationsService {
 
   async update({ importId, importation }) {
     const options = { new: true };
-    importation = await addProperties(importation)
+    importation = await addProperties(importation);
     try {
       let updatedBuy = await Importation.findByIdAndUpdate(
         importId,
