@@ -6,21 +6,32 @@ const productsService = new ProductsService();
 const productsApi = (app) => {
   const router = express.Router();
   app.use("/products", router);
-  router.get("/", async (req, res, next) => {
-    const { tags } = req.query;
+  // router.get("/", async (req, res, next) => {
+  //   const { tags } = req.query;
 
-    try {
-      const products = await productsService.get({ tags });
-      res.status(200).json(products);
-    } catch (err) {
-      next(err);
-    }
-  });
+  //   try {
+  //     const products = await productsService.get({ tags });
+  //     res.status(200).json(products);
+  //   } catch (err) {
+  //     next(err);
+  //   }
+  // });
 
   router.get("/:productId", async function (req, res, next) {
     const { productId } = req.params;
     try {
       const product = await productsService.edit({ productId });
+      res.status(200).json(product);
+    } catch (err) {
+      next(err);
+    }
+  });
+
+  router.get("/page/:pageNum", async function (req, res, next) {
+    const { pageNum } = req.params;
+    const num = Number(pageNum);
+    try {
+      const product = await productsService.get(num);
       res.status(200).json(product);
     } catch (err) {
       next(err);

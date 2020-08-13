@@ -1,6 +1,7 @@
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 const params = require("../utils/params");
+const mongoosePaginate = require("mongoose-paginate-v2");
 
 const ProductSchema = new Schema({
   name: {
@@ -57,6 +58,8 @@ const addCalculatedProperties = (product) => {
   product.total_cost_unit_bs = (product.total_cost_bs / product.lot).toFixed(2);
   return product;
 };
+
+ProductSchema.plugin(mongoosePaginate);
 
 const Product = mongoose.model("Product", ProductSchema);
 

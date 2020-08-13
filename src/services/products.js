@@ -2,13 +2,19 @@ const productsMock = require("../utils/mocks/products");
 const { Product, addCalculatedProperties } = require("../models/product");
 const { Company } = require("../models/company");
 const Boom = require("boom");
-
+const { paginateModel } = require("./functions/pagination");
 class ProductsService {
   constructor() {}
 
-  async get() {
-    return await Product.find().populate("company");
+  async get(page) {
+    return await paginateModel({
+      model: Product,
+      query: Product.find().populate("company"),
+      page: page,
+      limit: 1,
+    });
   }
+
   async edit({ productId }) {
     try {
       return await Product.findById(productId).populate("company");
