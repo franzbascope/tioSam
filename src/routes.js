@@ -20,7 +20,7 @@ const Routes = (app) => {
     });
   });
   authRouter(app);
-  sellsRouter(app);
+  
   // needs authentication routes
   authenticatedRoutes(app);
 };
@@ -32,7 +32,7 @@ const authenticatedRoutes = (app) => {
   //requiring auth routes
   
   companiesApi(app);
-  
+  sellsRouter(app);
   productsRouter(app);
   importationsRouter(app);
   storagesRouter(app);
