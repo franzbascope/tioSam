@@ -1,6 +1,7 @@
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 const { BuySchema } = require("./buys");
+const mongoosePaginate = require("mongoose-paginate-v2");
 
 const ImportationSchema = new Schema({
   departure_date: {
@@ -30,6 +31,8 @@ const ImportationSchema = new Schema({
   },
   buys: [BuySchema],
 });
+
+ImportationSchema.plugin(mongoosePaginate);
 
 const Importation = mongoose.model("Importation", ImportationSchema);
 
