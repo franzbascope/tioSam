@@ -6,11 +6,11 @@ const importationsService = new ImportationService();
 function apiImportation(app) {
   const router = express.Router();
   app.use("/importations", router);
-  router.get("/", async (req, res, next) => {
-    const { tags } = req.query;
+  router.get("/page/:pageNum", async (req, res, next) => {
+    //const { tags } = req.query;
 
     try {
-      const myImport = await importationsService.get({ tags });
+      const myImport = await importationsService.get(req);
       res.status(200).json(myImport);
     } catch (err) {
       next(err);

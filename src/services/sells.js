@@ -1,11 +1,18 @@
 const { Sell } = require("../models/sell");
 const Boom = require("boom");
+const { paginateModel } = require("./functions/pagination");
 
 class SellsService {
   constructor() {}
 
-  async get() {
-    return await Sell.find();
+  async get(req) {
+    const { pageNum } = req.params;
+    const num = Number(pageNum);
+    return await paginateModel({
+      model: Sell,
+      query: Sell.find(),
+      page: num,
+    });
   }
   async edit({ sellId }) {
     try {
