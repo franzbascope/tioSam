@@ -23,6 +23,7 @@ const productsApi = (app) => {
       const product = await productsService.get(req);
       res.status(200).json(product);
     } catch (err) {
+      console.log(err)
       next(err);
     }
   });
