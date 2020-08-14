@@ -1,5 +1,6 @@
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
+const mongoosePaginate = require("mongoose-paginate-v2");
 
 const ClientSchema = new Schema({
   name: {
@@ -15,6 +16,8 @@ const ClientSchema = new Schema({
     default: "SCZ",
   },
 });
+
+ClientSchema.plugin(mongoosePaginate);
 
 const Client = mongoose.model("Client", ClientSchema);
 

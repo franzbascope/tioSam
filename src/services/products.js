@@ -6,12 +6,13 @@ const { paginateModel } = require("./functions/pagination");
 class ProductsService {
   constructor() {}
 
-  async get(page) {
+  async get(req) {
+    const { pageNum } = req.params;
+    const num = Number(pageNum);
     return await paginateModel({
       model: Product,
       query: Product.find().populate("company"),
-      page: page,
-      limit: 1,
+      page: num,
     });
   }
 

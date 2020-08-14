@@ -1,4 +1,5 @@
-const paginateModel = async ({ model, query, page, limit }) => {
+const { limit } = require("../../utils/params");
+const paginateModel = async ({ model, query, page }) => {
   let options = {
     page: page,
     limit: limit,
