@@ -21,7 +21,6 @@ const Routes = (app) => {
   });
   authRouter(app);
   
- 
   // needs authentication routes
   authenticatedRoutes(app);
 };

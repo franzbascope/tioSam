@@ -1,16 +1,23 @@
 const { Buy } = require("../models/buys");
 const Boom = require("boom");
-const { addProperties } = require('../models/buys/calculatedFunctions')
+const { addProperties } = require("../models/buys/calculatedFunctions");
+const { paginateModel } = require("./functions/pagination");
 
 class SellsService {
-  constructor() { }
+  constructor() {}
 
-  async get() {
-    return Buy.find();
+  async get(req) {
+    const { pageNum } = req.params;
+    const num = Number(pageNum);
+    return await paginateModel({
+      model: Buy,
+      query: Buy.find(),
+      page: num,
+    });
   }
   async store({ buy }) {
     try {
-      buy = addProperties(buy)
+      buy = addProperties(buy);
       let newBuy = await new Buy(buy).save();
       return newBuy;
     } catch (e) {
@@ -35,13 +42,9 @@ class SellsService {
 
   async update({ buyId, buy }) {
     const options = { new: true };
-    buy = addProperties(buy)
+    buy = addProperties(buy);
     try {
-      let updatedBuy = await Buy.findByIdAndUpdate(
-        buyId,
-        buy,
-        options
-      );
+      let updatedBuy = await Buy.findByIdAndUpdate(buyId, buy, options);
       return updatedBuy;
     } catch (e) {
       throw Boom.notFound();

@@ -5,11 +5,11 @@ const buysService = new BuysService();
 function apiBuys(app) {
   const router = express.Router();
   app.use("/buys", router);
-  router.get("/", async (req, res, next) => {
-    const { tags } = req.query;
+  router.get("/page/:pageNum", async (req, res, next) => {
+    //const { tags } = req.query;
 
     try {
-      const buys = await buysService.get({ tags });
+      const buys = await buysService.get(req);
       res.status(200).json(buys);
     } catch (err) {
       next(err);

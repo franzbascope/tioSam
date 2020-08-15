@@ -1,11 +1,18 @@
 const { Client } = require("../models/client");
 const Boom = require("boom");
+const { paginateModel } = require("./functions/pagination");
 
 class ClientService {
   constructor() {}
 
-  async get() {
-    return await Client.find();
+  async get(req) {
+    const { pageNum } = req.params;
+    const num = Number(pageNum);
+    return await paginateModel({
+      model: Client,
+      query: Client.find(),
+      page: num,
+    });
   }
   async edit({ clientId }) {
     try {
