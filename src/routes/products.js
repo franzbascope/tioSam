@@ -26,6 +26,16 @@ const productsApi = (app) => {
       next(err);
     }
   });
+  
+  router.get("/", async function (req, res, next) {
+    try {
+      const product = await productsService.getAll();
+      res.status(200).json(product);
+    } catch (err) {
+      console.log(err);
+      next(err);
+    }
+  });
 
   router.post("/", async (req, res, next) => {
     try {

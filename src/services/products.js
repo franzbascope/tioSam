@@ -8,6 +8,9 @@ const { buildQuery } = require("./functions/build-query");
 class ProductsService {
   constructor() {}
 
+  async getAll() {
+    return await Product.find().populate("company");
+  }
   async get(req) {
     const { pageNum } = req.params;
     const num = Number(pageNum);
