@@ -6,7 +6,7 @@ const productsService = new ProductsService();
 const productsApi = (app) => {
   const router = express.Router();
   app.use("/products", router);
-  
+
   router.get("/:productId", async function (req, res, next) {
     const { productId } = req.params;
     try {
@@ -18,12 +18,11 @@ const productsApi = (app) => {
   });
 
   router.get("/page/:pageNum", async function (req, res, next) {
-    
     try {
       const product = await productsService.get(req);
       res.status(200).json(product);
     } catch (err) {
-      console.log(err)
+      console.log(err);
       next(err);
     }
   });
