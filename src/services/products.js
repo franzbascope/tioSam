@@ -13,7 +13,7 @@ class ProductsService {
     //example ?name=/Minox/&weight=weight>100
     //example ?price_bs=<=140&weight=>50
     //example ?name==/Minox/&price_bs=<=140&weight=>50
-
+    //console.log(req.body);
     const { pageNum } = req.params;
     const num = Number(pageNum);
     //console.log(req.query);
@@ -26,7 +26,8 @@ class ProductsService {
     }
 
     const rquery = parser.parse(query);
-    //console.log(rquery);
+    
+    console.log(rquery);
     return await paginateModel({
       model: Product,
       query: Product.find(rquery.filter).populate("company"),
