@@ -7,7 +7,7 @@ const ProductStorageSchema = new Schema({
     type: Number,
     required: true,
   },
-  units: {
+  lots: {
     type: Number,
     required: true,
   },

@@ -1,4 +1,5 @@
 const params = require("../../utils/params");
+const { Storage } = require("../storage");
 
 const getValueBs = (importation) => {
   return params.exchange_rate * importation.value_dollars;
@@ -34,11 +35,17 @@ const getShippingEstimatedKg = async (importation) => {
   return shipping_estimated_kg;
 };
 
+const addImportationToStorage = async (importation) => {
+  let storage = await Storage.findById(importation.storage);
+  storage = storage.addImportation(importation);
+};
+
 const addProperties = async (importation) => {
   importation.shipping_estimated_kg = await getShippingEstimatedKg(importation);
   importation.shipping_cost_dollars = getShippingCostDollars(importation);
   importation.value_dollars = await getValueDollars(importation);
   importation.value_bs = getValueBs(importation);
+  await addImportationToStorage(importation);
 
   return importation;
 };

@@ -3,7 +3,6 @@ var Schema = mongoose.Schema;
 const { ProductBuySchema } = require("./product_buy");
 const mongoosePaginate = require("mongoose-paginate-v2");
 
-
 const BuySchema = new Schema({
   name: {
     type: String,
