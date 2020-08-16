@@ -5,6 +5,10 @@ const { paginateModel } = require("./functions/pagination");
 class ClientService {
   constructor() {}
 
+  async getAll() {
+    return await Client.find();
+  }
+
   async get(req) {
     const { pageNum } = req.params;
     const num = Number(pageNum);
