@@ -6,9 +6,17 @@ const clientsApi = (app) => {
   const router = express.Router();
   app.use("/clients", router);
   router.get("/", async (req, res, next) => {
-    const { tags } = req.query;
     try {
-      const clients = await clientsService.get({ tags });
+      const clients = await clientsService.getAll();
+      res.status(200).json(clients);
+    } catch (err) {
+      next(err);
+    }
+  });
+  
+  router.get("/page/:pageNum", async (req, res, next) => {
+    try {
+      const clients = await clientsService.get(req);
       res.status(200).json(clients);
     } catch (err) {
       next(err);

@@ -48,7 +48,11 @@ const ProductBuySchema = new Schema({
     type: Number,
     required: true,
   },
-  quantity: {
+  quantity_lots: {
+    type: Number,
+    required: true,
+  },
+  quantity_units: {
     type: Number,
     required: true,
   },

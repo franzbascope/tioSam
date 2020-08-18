@@ -1,7 +1,7 @@
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
-const params = require("../utils/params");
 const { BuySchema } = require("./buys");
+const mongoosePaginate = require("mongoose-paginate-v2");
 
 const ImportationSchema = new Schema({
   departure_date: {
@@ -11,11 +11,7 @@ const ImportationSchema = new Schema({
   arrival_date: {
     type: Date,
   },
-  state: {
-    type: String,
-    enum: ["USA", "TRANSIT", "BO"],
-    default: "USA",
-  },
+  storage: { type: Schema.Types.ObjectId, ref: "Storage", required: true },
   value_dollars: {
     type: Number,
     default: function () {},
@@ -35,6 +31,8 @@ const ImportationSchema = new Schema({
   },
   buys: [BuySchema],
 });
+
+ImportationSchema.plugin(mongoosePaginate);
 
 const Importation = mongoose.model("Importation", ImportationSchema);
 

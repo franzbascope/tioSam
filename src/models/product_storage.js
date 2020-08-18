@@ -1,16 +1,17 @@
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
+const { ProductSchema } = require("./product");
 
 const ProductStorageSchema = new Schema({
   units: {
     type: Number,
     required: true,
   },
-  units: {
+  lots: {
     type: Number,
     required: true,
   },
-  product: { type: Schema.Types.ObjectId, ref: "Product" },
+  product: ProductSchema,
 });
 
 const ProductStorage = mongoose.model("ProductStorage", ProductStorageSchema);

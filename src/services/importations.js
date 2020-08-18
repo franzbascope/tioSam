@@ -1,12 +1,19 @@
 const { Importation } = require("../models/importations");
 const Boom = require("boom");
 const { addProperties } = require("../models/importation/helperFunctions");
+const { paginateModel } = require("./functions/pagination");
 
 class ImportationsService {
   constructor() {}
 
-  async get() {
-    return await Importation.find();
+  async get(req) {
+    const { pageNum } = req.params;
+    const num = Number(pageNum);
+    return await paginateModel({
+      model: Importation,
+      query: Importation.find().populate("storage"),
+      page: num,
+    });
   }
   async store({ importation }) {
     try {
@@ -28,7 +35,7 @@ class ImportationsService {
 
   async edit({ importId }) {
     try {
-      return await Importation.findById(importId);
+      return await Importation.findById(importId).populate("storage");
     } catch (e) {
       throw Boom.notFound(e);
     }

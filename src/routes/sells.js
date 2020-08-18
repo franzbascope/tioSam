@@ -5,10 +5,10 @@ const sellsService = new SellsService();
 function apiSells(app) {
   const router = express.Router();
   app.use("/sells", router);
-  router.get("/", async (req, res, next) => {
-    const { tags } = req.query;
+  router.get("/page/:pageNum", async (req, res, next) => {
+    //const { tags } = req.query;
     try {
-      const sells = await sellsService.get({ tags });
+      const sells = await sellsService.get(req);
       res.status(200).json(sells);
     } catch (err) {
       next(err);

@@ -1,7 +1,7 @@
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 const { ProductBuySchema } = require("./product_buy");
-
+const mongoosePaginate = require("mongoose-paginate-v2");
 
 const BuySchema = new Schema({
   name: {
@@ -37,6 +37,8 @@ const BuySchema = new Schema({
 
   products: [ProductBuySchema],
 });
+
+BuySchema.plugin(mongoosePaginate);
 
 const Buy = mongoose.model("Buy", BuySchema);
 
